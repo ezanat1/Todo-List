@@ -1,16 +1,41 @@
 <!DOCTYPE html>
-
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
+            <div class="container">
+                    <div class="row">
+                     <div class="col mx-auto col-md-8 mt-3 text-center">
+                      <div class="alert text-capitalize feedback">
+                       write value for item
+                      </div>
+                      <!-- form -->
+                      <form id="itemForm" class="my-3">
+                       <h3 class="text-capitalize mb-4">to do list</h3>
+                       <div class="input-group">
+                        <input type="text" class="form-control text-capitalize" id="itemInput" placeholder="name...">
+                        <div class="input-group-append">
+                         <button class="btn btn-green text-capitalize" type="submit">add item</button>
+                        </div>
+                       </div>
+                      </form>
+                      <div class="item-container">
+                       <!-- end of form  -->
+                       <div class="item-list my-5">
+                       </div>
+                       <button type="button" class="btn btn-green my-3 text-capitalize" id="clear-list">clear items</button>
+                      </div>
+                     </div>
+                    </div>
+                   </div>
 
         
-        <script src="" async defer></script>
+        <script src="main.js" </script>
     </body>
 </html>
