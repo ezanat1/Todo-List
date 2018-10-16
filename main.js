@@ -7,10 +7,30 @@ const feedback=document.querySelector('.feedback');
 
 
 
-let itemData=[];
+//let itemData=[];
+//Getting the data from local storage 
+let itemData=JSON.parse(localStorage.getItem('list')) || [];
+//Check if their is a storage in the local storage
+if(itemData.length>0){
+    itemData.forEach(function(item){
+        itemList.insertAdjacentHTML('beforeend',`
+        <div class='item my-3'>
+        <h5 class="item-name text-capitalize">${item}</h5>
+        <div class="item-icons">
+        <a href="#" class="complete-item mx-2 item-icon"><i class="far fa-check-circle"></i></a>
+        <a href="#" class="edit-item mx-2 item-icon"><i class="far fa-edit"></i></a>
+        <a href="#" class="delete-item item-icon"><i class="far fa-times-circle"></i></a>
+        </div>
+      </div>
+              
+        `);
+        handleItem(item);
+
+    });
+};
+ 
 //Listen for Form Submittion 
 //Check for default form submition and check if the input is empty
-
 itemForm.addEventListener('submit',function(event){
     event.preventDefault();
     const textValue=itemInput.value;
@@ -29,7 +49,7 @@ itemForm.addEventListener('submit',function(event){
         itemInput.value='';
         //Add to the item list-- We are going to use local storage letter
         itemData.push(textValue);
-        // console.log(itemData);
+        localStorage.setItem('list',JSON.stringify(itemData));
 
         handleItem(textValue);
 
@@ -48,7 +68,7 @@ function showFeedBack(msg,action){
 };
 
 
-//Additem Funciton 
+//Addi tem Funciton 
 
 function addItem(item){
     const div=document.createElement('div');
@@ -62,8 +82,6 @@ function addItem(item){
       </div>
     `
     itemList.appendChild(div);
-
-
 }
 
 // Function to handle icon events
@@ -84,16 +102,12 @@ function handleItem(textValue){
                 itemInput.value=textValue;
                 itemList.removeChild(item);
              
-            
-
                 itemData=itemData.filter(function(item){
                     return item !== textValue;
 
-
                 });
-           
-                
-
+                localStorage.setItem('list',JSON.stringify(itemData));
+    
 
             })
             item.querySelector('.delete-item').addEventListener('click',function(){
@@ -101,9 +115,11 @@ function handleItem(textValue){
                 itemData=itemData.filter(function(item){
                     return item !== textValue;
                 });
+                localStorage.setItem('list',JSON.stringify(itemData));
                 showFeedBack('item Deleted','success')
            
-            })
+            });
+
         }
 
     });
@@ -112,6 +128,7 @@ function handleItem(textValue){
 //Clear All items
 clearBtn.addEventListener('click',function(){
     itemData=[];
+    localStorage.removeItem()
     const items=itemList.querySelectorAll('.item');
     if(items.length>0){
         items.forEach(function(item){
