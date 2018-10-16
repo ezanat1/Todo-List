@@ -14,13 +14,26 @@ let itemData=[];
 itemForm.addEventListener('submit',function(event){
     event.preventDefault();
     const textValue=itemInput.value;
-    console.log(textValue);
+    // console.log(textValue);
 
-
+    //Check to see if the input is empty
+    //If it is Display a message
     if(textValue === ''){
         showFeedBack('Please Enter Something','danger');
     }
-    
+    else{
+        //Add the item 
+        addItem(textValue);
+        //Clear the form 
+        //Set to an empty strings so that its empty
+        itemInput.value='';
+        //Add to the item list-- We are going to use local storage letter
+        itemData.push(textValue);
+        // console.log(itemData);
+
+        handleItem(textValue);
+
+    }
 
 });
 
@@ -31,9 +44,73 @@ function showFeedBack(msg,action){
     feedback.innerHTML=`<p>${msg}</p>`
     setTimeout(function(){
         feedback.classList.remove('showItem',`alert-${action}`);
-
-
-    },3000);
-
-
+    },2000);
 };
+
+
+//Additem Funciton 
+
+function addItem(item){
+    const div=document.createElement('div');
+    div.classList.add('item','my-3');
+    div.innerHTML=`
+    <h5 class="item-name text-capitalize">${item}</h5>
+      <div class="item-icons">
+       <a href="#" class="complete-item mx-2 item-icon"><i class="far fa-check-circle"></i></a>
+       <a href="#" class="edit-item mx-2 item-icon"><i class="far fa-edit"></i></a>
+       <a href="#" class="delete-item item-icon"><i class="far fa-times-circle"></i></a>
+      </div>
+    `
+    itemList.appendChild(div);
+
+
+}
+
+// Function to handle icon events
+function handleItem(textValue){
+    const items=itemList.querySelectorAll('.item')
+    console.log(items);
+    items.forEach(function(item){
+        if(item.querySelector('.item-name').textContent===textValue){
+            //Giving functionality to Icons
+            //Complete
+            item.querySelector('.complete-item').addEventListener('click',function(){
+                item.querySelector('.item-name').classList.toggle('completed');
+                this.classList.toggle('visibility');
+
+            });
+            //Edit event listener
+            item.querySelector('.edit-item').addEventListener('click',function(){
+                itemInput.value=textValue;
+                itemList.removeChild(item);
+             
+            
+
+                itemData=itemData.filter(function(item){
+                    return item !== textValue;
+
+
+                });
+           
+                
+
+
+            })
+            item.querySelector('.delete-item').addEventListener('click',function(){
+                itemList.removeChild(item);            
+                itemData=itemData.filter(function(item){
+                    return item !== textValue;
+                });
+                showFeedBack('item Deleted','success')
+           
+            })
+        }
+
+    });
+      
+};
+//Clear All items
+clearBtn.addEventListener('click',function(){
+    itemData=[];
+
+})
