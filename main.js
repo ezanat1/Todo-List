@@ -112,5 +112,10 @@ function handleItem(textValue){
 //Clear All items
 clearBtn.addEventListener('click',function(){
     itemData=[];
-
+    const items=itemList.querySelectorAll('.item');
+    if(items.length>0){
+        items.forEach(function(item){
+            itemList.removeChild(item);
+        })
+    }
 })
