@@ -21,9 +21,7 @@ if(itemData.length>0){
         <a href="#" class="edit-item mx-2 item-icon"><i class="far fa-edit"></i></a>
         <a href="#" class="delete-item item-icon"><i class="far fa-times-circle"></i></a>
         </div>
-      </div>
-              
-        `);
+      </div>`);
         handleItem(item);
 
     });
@@ -128,7 +126,7 @@ function handleItem(textValue){
 //Clear All items
 clearBtn.addEventListener('click',function(){
     itemData=[];
-    localStorage.removeItem()
+    localStorage.removeItem('list')
     const items=itemList.querySelectorAll('.item');
     if(items.length>0){
         items.forEach(function(item){
